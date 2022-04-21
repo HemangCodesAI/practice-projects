@@ -7,12 +7,13 @@ def get_word(words):
         word= random.choice(words)
     return word.upper()
 def hangman():
-    lives =3
+    lives =7
     word = get_word(words)
     word_letters = set(word)
     used_letters = set()
     alphabets = set(string.ascii_uppercase)
     while len(word_letters)>0 or lives>0:
+        print(lives)
         print ("You have used these letters :"," ".join(used_letters))
         word_list=[letter if letter in used_letters else "-" for letter in word]
         print("Current word : "," ".join(word_list))
@@ -21,13 +22,15 @@ def hangman():
             used_letters.add(user_input)
             if user_input in word_letters:
                 word_letters.remove(user_input)
+                if len(word_letters)==0:
+                    break
             else:
                 lives=lives-1
-                if lives ==0:
+                if lives==0:
                     break
                 print("WRONG!!! Guess again")
         elif user_input in used_letters:
-            print("You have already used this letter. Choose a diffrent one.")
+            print("You have already used this letter. Choose a different one.")
         else:
             print("Invalid Entry")
     if lives==0:
